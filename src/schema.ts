@@ -10,7 +10,7 @@ const resolversArray = fileLoader(
   path.join(__dirname, './api/**/*.resolver.ts'),
 );
 
-const typeDefs = mergeTypes(typesArray);
+export const typeDefs = mergeTypes(typesArray);
 const resolvers = mergeResolvers(resolversArray);
 
 const schema = makeExecutableSchema({
