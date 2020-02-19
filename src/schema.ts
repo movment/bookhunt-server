@@ -7,7 +7,7 @@ const typesArray: GraphQLSchema[] = fileLoader(
   path.join(__dirname, './api/**/*.graphql'),
 );
 const resolversArray = fileLoader(
-  path.join(__dirname, './api/**/*.resolver.ts'),
+  path.join(__dirname, './api/**/*.resolvers.ts'),
 );
 
 export const typeDefs = mergeTypes(typesArray);
