@@ -4,18 +4,23 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec ts-node ./src/index.ts -e ts, graphql",
+    "start": "nodemon --exec ts-node ./src/index.ts -e ts,graphql",
     "precodegen": "ts-node ./src/utils/genSchema.ts",
     "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "graphql-yoga": "^1.18.3",
-    "merge-graphql-schemas": "^1.7.6"
+    "merge-graphql-schemas": "^1.7.6",
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.22"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.12.2",
     "@graphql-codegen/typescript": "1.12.2",
     "@graphql-codegen/typescript-resolvers": "1.12.2",
+    "@types/node": "^13.7.2",
     "nodemon": "^2.0.2",
     "ts-node": "^8.6.2",
     "typescript": "^3.7.5"

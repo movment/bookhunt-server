@@ -1,5 +1,9 @@
+import 'dotenv/config';
 import { Options } from 'graphql-yoga';
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
 import app from './app';
+import ormConfig from './ormConfig';
 
 const appOptions: Options = {
   port: 4000,
@@ -7,6 +11,8 @@ const appOptions: Options = {
   playground: '/playground',
 };
 
-app.start(appOptions, () => {
-  console.log('Listening on port 4000');
-});
+createConnection(ormConfig)
+  .then(() =>
+    app.start(appOptions, () => console.log('Listening on port 4000')),
+  )
+  .catch((error) => console.error(error));
