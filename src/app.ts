@@ -1,4 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga';
+import logger from 'morgan';
 import schema from './schema';
 
 class App {
@@ -11,7 +12,9 @@ class App {
     this.middlewares();
   }
 
-  private middlewares = (): void => {};
+  private middlewares = (): void => {
+    this.app.express.use(logger('dev'));
+  };
 }
 
 export default new App().app;
