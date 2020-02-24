@@ -1,5 +1,5 @@
-import { MutationSignUpArgs, SignUpResponse } from '../../types/types';
-import User from '../../entities/User';
+import { MutationSignUpArgs, SignUpResponse } from '../../../types/types';
+import User from '../../../entities/User';
 
 const resolvers = {
   Mutation: {

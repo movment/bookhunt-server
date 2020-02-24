@@ -1,4 +1,4 @@
-import { SignOutResponse } from '../../types/types';
+import { SignOutResponse } from '../../../types/types';
 
 const resolvers = {
   Mutation: {

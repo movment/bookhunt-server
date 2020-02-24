@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { MutationSignInArgs, SignInResponse } from '../../types/types';
-import User from '../../entities/User';
+import { MutationSignInArgs, SignInResponse } from '../../../types/types';
+import User from '../../../entities/User';
 
 const resolvers = {
   Mutation: {
