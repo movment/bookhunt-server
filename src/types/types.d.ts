@@ -1,5 +1,9 @@
 import { GraphQLResolveInfo } from 'graphql';
 export type Maybe<T> = T | null;
+export type RequireFields<T, K extends keyof T> = {
+  [X in Exclude<keyof T, K>]?: T[X];
+} &
+  { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -9,13 +13,53 @@ export type Scalars = {
   Float: number;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  SignIn: SignInResponse;
+  SignOut: SignOutResponse;
+  SignUp: SignUpResponse;
+};
+
+export type MutationSignInArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type MutationSignUpArgs = {
+  name: Scalars['String'];
+  email: Scalars['String'];
+  password: Scalars['String'];
+  career?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
-  hello: Scalars['String'];
+  hello?: Maybe<Scalars['String']>;
+  getJWT?: Maybe<Scalars['String']>;
 };
 
 export type QueryHelloArgs = {
   name?: Maybe<Scalars['String']>;
+};
+
+export type SignInResponse = {
+  __typename?: 'SignInResponse';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  token?: Maybe<Scalars['String']>;
+};
+
+export type SignOutResponse = {
+  __typename?: 'SignOutResponse';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+};
+
+export type SignUpResponse = {
+  __typename?: 'SignUpResponse';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -128,14 +172,45 @@ export type DirectiveResolverFn<
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Mutation: ResolverTypeWrapper<{}>;
+  SignInResponse: ResolverTypeWrapper<SignInResponse>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  SignOutResponse: ResolverTypeWrapper<SignOutResponse>;
+  SignUpResponse: ResolverTypeWrapper<SignUpResponse>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {};
   String: Scalars['String'];
+  Mutation: {};
+  SignInResponse: SignInResponse;
   Boolean: Scalars['Boolean'];
+  SignOutResponse: SignOutResponse;
+  SignUpResponse: SignUpResponse;
+};
+
+export type MutationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
+> = {
+  SignIn?: Resolver<
+    ResolversTypes['SignInResponse'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationSignInArgs, 'email' | 'password'>
+  >;
+  SignOut?: Resolver<
+    ResolversTypes['SignOutResponse'],
+    ParentType,
+    ContextType
+  >;
+  SignUp?: Resolver<
+    ResolversTypes['SignUpResponse'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationSignUpArgs, 'name' | 'email' | 'password'>
+  >;
 };
 
 export type QueryResolvers<
@@ -143,15 +218,48 @@ export type QueryResolvers<
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
   hello?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType,
     QueryHelloArgs
   >;
+  getJWT?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type SignInResponseResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['SignInResponse'] = ResolversParentTypes['SignInResponse']
+> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
+export type SignOutResponseResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['SignOutResponse'] = ResolversParentTypes['SignOutResponse']
+> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
+export type SignUpResponseResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['SignUpResponse'] = ResolversParentTypes['SignUpResponse']
+> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
 export type Resolvers<ContextType = any> = {
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  SignInResponse?: SignInResponseResolvers<ContextType>;
+  SignOutResponse?: SignOutResponseResolvers<ContextType>;
+  SignUpResponse?: SignUpResponseResolvers<ContextType>;
 };
 
 /**

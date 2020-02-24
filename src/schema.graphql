@@ -1,7 +1,31 @@
 type Query {
-  hello(name: String): String!
+  hello(name: String): String
+  getJWT: String
+}
+
+type SignInResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type Mutation {
+  SignIn(email: String!, password: String!): SignInResponse!
+  SignOut: SignOutResponse!
+  SignUp(name: String!, email: String!, password: String!, career: String, image: String): SignUpResponse!
+}
+
+type SignOutResponse {
+  ok: Boolean!
+  error: String
+}
+
+type SignUpResponse {
+  ok: Boolean!
+  error: String
 }
 
 schema {
   query: Query
+  mutation: Mutation
 }
