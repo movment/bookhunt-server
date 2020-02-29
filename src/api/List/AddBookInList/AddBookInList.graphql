@@ -1,0 +1,7 @@
+type AddBookInListResponse {
+  ok: Boolean!
+  error: String
+}
+type Mutation {
+  AddBookInList(bookId: String!, listId: String!): AddBookInListResponse!
+}
