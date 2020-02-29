@@ -4,5 +4,5 @@ type GetBooksResponse {
   books: [Book]
 }
 type Query {
-  GetBooks(id: String): GetBooksResponse
+  GetBooks(id: String): GetBooksResponse!
 }
