@@ -19,6 +19,7 @@ const resolvers = {
         return {
           ok: true,
           error: null,
+          celeb,
         };
       } catch (error) {
         return {
