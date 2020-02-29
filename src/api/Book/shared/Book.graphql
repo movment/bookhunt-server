@@ -1,0 +1,13 @@
+type Book {
+  id: Int!
+  title: String!
+  link: String
+  image: String
+  author: String!
+  translator: String
+  publisher: String
+  pubdate: String
+  isbn: String
+  description: String
+  reviewers: [User]
+}
