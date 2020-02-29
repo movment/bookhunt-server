@@ -1,7 +1,8 @@
 type AddCelebResponse {
   ok: Boolean!
   error: String
+  celeb: Celeb
 }
 type Mutation {
-  AddCeleb(name: String!, career: String!, image: String): AddCelebResponse
+  AddCeleb(name: String!, career: String!, image: String): AddCelebResponse!
 }
