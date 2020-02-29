@@ -2,5 +2,5 @@ type List {
   id: Int!
   title: String!
   user: User!
-  books: [Book]
+  # books: [Book]
 }
