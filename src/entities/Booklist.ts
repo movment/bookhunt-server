@@ -12,8 +12,11 @@ class Booklist extends Share {
   @ManyToOne(
     (type) => User,
     (user) => user.lists,
+    { nullable: true, eager: true },
   )
   user: User;
+  @Column()
+  userId: number;
 
   @ManyToMany((type) => Book, { cascade: true, onDelete: 'CASCADE' })
   @JoinTable({
