@@ -1,0 +1,12 @@
+type AddBookResponse {
+  ok: Boolean!
+  error: String
+}
+type Mutation {
+  AddBook(
+    title: String!
+    author: String!
+    translator: String
+    image: String
+  ): AddBookResponse!
+}
