@@ -4,5 +4,5 @@ type SearchBooksResponse {
   books: [Book]
 }
 type Query {
-  SearchBooks(title: String!, max: Int): SearchBooksResponse
+  SearchBooks(title: String!, max: Int): SearchBooksResponse!
 }
