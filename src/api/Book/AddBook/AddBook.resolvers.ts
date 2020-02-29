@@ -5,18 +5,25 @@ const resolvers = {
   Mutation: {
     AddBook: async (_, args: MutationAddBookArgs): Promise<AddBookResponse> => {
       const { title, author, translator, image } = args;
-      const book = new Book();
-      book.title = title;
-      book.author = author;
-      book.translator = translator;
-      book.image = image;
+      try {
+        const book = new Book();
+        book.title = title;
+        book.author = author;
+        book.translator = translator;
+        book.image = image;
 
-      await book.save();
+        await book.save();
 
-      return {
-        ok: true,
-        error: null,
-      };
+        return {
+          ok: true,
+          error: null,
+        };
+      } catch (error) {
+        return {
+          ok: false,
+          error: error.message,
+        };
+      }
     },
   },
 };
