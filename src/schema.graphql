@@ -1,18 +1,108 @@
+type AddBookResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  AddBook(title: String!, author: String!, translator: String, image: String): AddBookResponse!
+  AddCeleb(name: String!, career: String!, image: String): AddCelebResponse
+  AddBookInList(bookId: String!, listId: String!): AddBookInListResponse!
+  AddBookList(title: String!): AddBookListResponse!
+  AddFavorite(bookId: String!): AddFavoriteResponse!
+  SignIn(email: String!, password: String!): SignInResponse!
+  SignOut: SignOutResponse!
+  SignUp(name: String!, email: String!, password: String!, career: String, image: String): SignUpResponse!
+}
+
+type GetBooksResponse {
+  ok: Boolean!
+  error: String
+  books: [Book]
+}
+
 type Query {
-  hello(name: String): String
-  getJWT: String
+  GetBooks(id: String): GetBooksResponse
+  SearchBooks(title: String!, max: Int): SearchBooksResponse
+  GetCelebList: GetCelebListResponse!
+  GetLists(type: options): GetListsResponse!
+}
+
+type SearchBooksResponse {
+  ok: Boolean!
+  error: String
+  books: [Book]
+}
+
+type Book {
+  id: Int!
+  title: String!
+  link: String
+  image: String
+  author: String!
+  translator: String
+  publisher: String
+  pubdate: String
+  isbn: String
+  description: String
+  reviewers: [User]
+}
+
+type AddCelebResponse {
+  ok: Boolean!
+  error: String
+}
+
+type GetCelebListResponse {
+  ok: Boolean!
+  error: String
+  Celebs: [Celeb]
+}
+
+type Celeb {
+  id: Int!
+  name: String!
+  career: String!
+  image: String
+}
+
+type AddBookInListResponse {
+  ok: Boolean!
+  error: String
+}
+
+type AddBookListResponse {
+  ok: Boolean!
+  error: String
+  list: List
+}
+
+type GetListsResponse {
+  ok: Boolean!
+  error: String
+  lists: [List]
+}
+
+enum options {
+  ALL
+  MY
+}
+
+type List {
+  id: Int!
+  title: String!
+  user: User!
+  books: [Book]
+}
+
+type AddFavoriteResponse {
+  ok: Boolean!
+  error: String
 }
 
 type SignInResponse {
   ok: Boolean!
   error: String
   token: String
-}
-
-type Mutation {
-  SignIn(email: String!, password: String!): SignInResponse!
-  SignOut: SignOutResponse!
-  SignUp(name: String!, email: String!, password: String!, career: String, image: String): SignUpResponse!
 }
 
 type SignOutResponse {
@@ -23,6 +113,16 @@ type SignOutResponse {
 type SignUpResponse {
   ok: Boolean!
   error: String
+}
+
+type User {
+  id: Int!
+  name: String!
+  
+  # email: String!
+   # password: String!
+  career: String
+  image: String
 }
 
 schema {
