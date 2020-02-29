@@ -1,7 +1,7 @@
 type GetCelebListResponse {
   ok: Boolean!
   error: String
-  Celebs: [Celeb]
+  celebs: [Celeb]
 }
 type Query {
   GetCelebList: GetCelebListResponse!
