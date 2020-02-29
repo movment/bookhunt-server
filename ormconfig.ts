@@ -5,5 +5,5 @@ module.exports = {
   host: 'localhost',
   username: process.env.TYPEORM_USERNAME,
   password: process.env.TYPEORM_PASSWORD,
-  database: 'hackathon',
+  database: 'books',
 };
