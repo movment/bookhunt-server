@@ -1,0 +1,8 @@
+type SearchBooksResponse {
+  ok: Boolean!
+  error: String
+  books: [Book]
+}
+type Query {
+  SearchBooks(title: String!, max: Int): SearchBooksResponse
+}
