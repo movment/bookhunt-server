@@ -1,0 +1,8 @@
+type AddBookListResponse {
+  ok: Boolean!
+  error: String
+  list: List
+}
+type Mutation {
+  AddBookList(title: String!): AddBookListResponse!
+}
