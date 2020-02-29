@@ -5,7 +5,7 @@ type AddBookResponse {
 
 type Mutation {
   AddBook(title: String!, author: String!, translator: String, image: String): AddBookResponse!
-  AddCeleb(name: String!, career: String!, image: String): AddCelebResponse
+  AddCeleb(name: String!, career: String!, image: String): AddCelebResponse!
   AddBookInList(bookId: String!, listId: String!): AddBookInListResponse!
   AddBookList(title: String!): AddBookListResponse!
   AddFavorite(bookId: String!): AddFavoriteResponse!
@@ -21,8 +21,8 @@ type GetBooksResponse {
 }
 
 type Query {
-  GetBooks(id: String): GetBooksResponse
-  SearchBooks(title: String!, max: Int): SearchBooksResponse
+  GetBooks(id: String): GetBooksResponse!
+  SearchBooks(title: String!, max: Int): SearchBooksResponse!
   GetCelebList: GetCelebListResponse!
   GetLists(type: options): GetListsResponse!
 }
@@ -50,12 +50,13 @@ type Book {
 type AddCelebResponse {
   ok: Boolean!
   error: String
+  celeb: Celeb
 }
 
 type GetCelebListResponse {
   ok: Boolean!
   error: String
-  Celebs: [Celeb]
+  celebs: [Celeb]
 }
 
 type Celeb {
@@ -91,7 +92,6 @@ type List {
   id: Int!
   title: String!
   user: User!
-  books: [Book]
 }
 
 type AddFavoriteResponse {
