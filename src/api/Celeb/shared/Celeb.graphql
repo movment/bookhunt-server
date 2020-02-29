@@ -1,0 +1,6 @@
+type Celeb {
+  id: Int!
+  name: String!
+  career: String!
+  image: String
+}
