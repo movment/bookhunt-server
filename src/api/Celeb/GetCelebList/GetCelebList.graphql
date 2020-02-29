@@ -1,0 +1,8 @@
+type GetCelebListResponse {
+  ok: Boolean!
+  error: String
+  Celebs: [Celeb]
+}
+type Query {
+  GetCelebList: GetCelebListResponse!
+}
