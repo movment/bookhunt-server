@@ -1,0 +1,13 @@
+type GetListsResponse {
+  ok: Boolean!
+  error: String
+  lists: [List]
+}
+
+enum options {
+  ALL
+  MY
+}
+type Query {
+  GetLists(type: options): GetListsResponse!
+}
