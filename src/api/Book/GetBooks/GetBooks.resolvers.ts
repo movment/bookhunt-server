@@ -8,23 +8,34 @@ const resolvers = {
       args: QueryGetBooksArgs,
       context,
     ): Promise<GetBooksResponse> => {
-      if (args.id) {
-        const book = await Book.findOne({ where: { id: args.id } });
-        if (book) {
+      try {
+        if (args.id) {
+          const book = await Book.findOne(args.id);
+          if (!book) {
+            return {
+              ok: true,
+              error: '잘못된 Book',
+            };
+          }
           return {
             ok: true,
             error: null,
             books: [book],
           };
         }
-      }
 
-      const books = await Book.find({ order: { id: 'DESC' }, take: 20 });
-      return {
-        ok: true,
-        error: null,
-        books,
-      };
+        const books = await Book.find({ order: { id: 'DESC' }, take: 20 });
+        return {
+          ok: true,
+          error: null,
+          books,
+        };
+      } catch (error) {
+        return {
+          ok: false,
+          error: error.message,
+        };
+      }
     },
   },
 };
