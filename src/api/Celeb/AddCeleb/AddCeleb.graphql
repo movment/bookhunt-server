@@ -1,0 +1,7 @@
+type AddCelebResponse {
+  ok: Boolean!
+  error: String
+}
+type Mutation {
+  AddCeleb(name: String!, career: String!, image: String): AddCelebResponse
+}
