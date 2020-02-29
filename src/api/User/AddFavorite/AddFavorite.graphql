@@ -1,0 +1,7 @@
+type AddFavoriteResponse {
+  ok: Boolean!
+  error: String
+}
+type Mutation {
+  AddFavorite(bookId: String!): AddFavoriteResponse!
+}
