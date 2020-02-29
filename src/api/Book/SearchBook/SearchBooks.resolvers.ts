@@ -14,18 +14,25 @@ const resolvers = {
         args: QuerySearchBooksArgs,
         context,
       ): Promise<SearchBooksResponse> => {
-        const books = await Book.find({
-          where: {
-            title: Like(`%${args.title}%`),
-          },
-          take: args.max || 20,
-        });
+        try {
+          const books = await Book.find({
+            where: {
+              title: Like(`%${args.title}%`),
+            },
+            take: args.max || 10,
+          });
 
-        return {
-          ok: true,
-          error: null,
-          books,
-        };
+          return {
+            ok: true,
+            error: null,
+            books,
+          };
+        } catch (error) {
+          return {
+            ok: false,
+            error: error.message,
+          };
+        }
       },
     ),
   },
