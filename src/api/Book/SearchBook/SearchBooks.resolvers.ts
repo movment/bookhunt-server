@@ -8,33 +8,31 @@ import { Like } from 'typeorm';
 
 const resolvers = {
   Query: {
-    SearchBooks: validation(
-      async (
-        _,
-        args: QuerySearchBooksArgs,
-        context,
-      ): Promise<SearchBooksResponse> => {
-        try {
-          const books = await Book.find({
-            where: {
-              title: Like(`%${args.title}%`),
-            },
-            take: args.max || 10,
-          });
+    SearchBooks: async (
+      _,
+      args: QuerySearchBooksArgs,
+      context,
+    ): Promise<SearchBooksResponse> => {
+      try {
+        const books = await Book.find({
+          where: {
+            title: Like(`%${args.title}%`),
+          },
+          take: args.max || 10,
+        });
 
-          return {
-            ok: true,
-            error: null,
-            books,
-          };
-        } catch (error) {
-          return {
-            ok: false,
-            error: error.message,
-          };
-        }
-      },
-    ),
+        return {
+          ok: true,
+          error: null,
+          books,
+        };
+      } catch (error) {
+        return {
+          ok: false,
+          error: error.message,
+        };
+      }
+    },
   },
 };
 export default resolvers;
