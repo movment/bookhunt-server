@@ -1,0 +1,8 @@
+type AddReviewResponse {
+  ok: Boolean!
+  error: String
+  reviewId: Int
+}
+type Mutation {
+  AddReview(bookId: Int!, comment: String!, rating: Rating!): AddReviewResponse!
+}
