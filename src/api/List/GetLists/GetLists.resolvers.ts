@@ -12,6 +12,10 @@ const resolvers = {
     ): Promise<GetListsResponse> => {
       try {
         if (args.type === 'MY') {
+          if (!context.req.user) {
+            throw new Error('로그인 먼저');
+          }
+          console.log('start');
           const user = await User.findOne(context.req.user, {
             relations: ['lists'],
           });
