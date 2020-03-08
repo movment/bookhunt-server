@@ -15,10 +15,9 @@ const resolvers = {
         context,
       ): Promise<AddFavoriteResponse> => {
         const [user, book] = await Promise.all([
-          User.findOne(context.req.user),
+          User.findOne(context.req.user, { relations: ['books'] }),
           Book.findOne(args.bookId),
         ]);
-        console.log(user, book);
         if (!user) {
           return {
             ok: true,
@@ -31,10 +30,10 @@ const resolvers = {
             error: '잘못된 BOOK',
           };
         }
-        user!.books = user!.books || [];
 
-        user?.books.push(book as Book);
-        await user?.save();
+        const index = user.books.findIndex((cur) => cur.id === book.id);
+        index !== -1 ? user.books.splice(index, 1) : user.books.push(book);
+        await user.save();
         return {
           ok: true,
           error: null,

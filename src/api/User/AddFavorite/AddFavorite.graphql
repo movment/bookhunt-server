@@ -3,5 +3,5 @@ type AddFavoriteResponse {
   error: String
 }
 type Mutation {
-  AddFavorite(bookId: String!): AddFavoriteResponse!
+  AddFavorite(bookId: Int!): AddFavoriteResponse!
 }
