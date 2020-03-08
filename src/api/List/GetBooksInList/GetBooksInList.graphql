@@ -1,0 +1,8 @@
+type GetBooksInListResponse {
+  ok: Boolean!
+  error: String
+  books: [Book]
+}
+type Query {
+  GetBooksInList(listId: Int!): GetBooksInListResponse!
+}
