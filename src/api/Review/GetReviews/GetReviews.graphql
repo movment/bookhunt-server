@@ -1,0 +1,8 @@
+type GetReviewsResponse {
+  ok: Boolean!
+  error: String
+  reviews: [Review]
+}
+type Query {
+  GetReviews(bookId: Int!): GetReviewsResponse!
+}
