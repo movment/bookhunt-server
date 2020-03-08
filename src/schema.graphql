@@ -6,9 +6,10 @@ type AddBookResponse {
 type Mutation {
   AddBook(title: String!, author: String!, translator: String, image: String): AddBookResponse!
   AddCeleb(name: String!, career: String!, image: String): AddCelebResponse!
-  AddBookInList(bookId: String!, listId: String!): AddBookInListResponse!
+  AddBookInList(bookId: Int!, listId: Int!): AddBookInListResponse!
   AddBookList(title: String!): AddBookListResponse!
-  AddFavorite(bookId: String!): AddFavoriteResponse!
+  AddReview(bookId: Int!, comment: String!, rating: Rating!): AddReviewResponse!
+  AddFavorite(bookId: Int!): AddFavoriteResponse!
   SignIn(email: String!, password: String!): SignInResponse!
   SignOut: SignOutResponse!
   SignUp(name: String!, email: String!, password: String!, career: String, image: String): SignUpResponse!
@@ -18,13 +19,21 @@ type GetBooksResponse {
   ok: Boolean!
   error: String
   books: [Book]
+  isFav: Boolean
+}
+
+enum SortOptions {
+  VIEWS
+  PUBDATE
 }
 
 type Query {
-  GetBooks(id: String): GetBooksResponse!
+  GetBooks(bookId: Int, sort: SortOptions): GetBooksResponse!
   SearchBooks(title: String!, max: Int): SearchBooksResponse!
   GetCelebList: GetCelebListResponse!
+  GetBooksInList(listId: Int!): GetBooksInListResponse!
   GetLists(type: options): GetListsResponse!
+  GetReviews(bookId: Int!): GetReviewsResponse!
 }
 
 type SearchBooksResponse {
@@ -44,7 +53,8 @@ type Book {
   pubdate: String
   isbn: String
   description: String
-  reviewers: [User]
+  isFav: Boolean
+  reviews: [Review]
 }
 
 type AddCelebResponse {
@@ -77,6 +87,12 @@ type AddBookListResponse {
   list: List
 }
 
+type GetBooksInListResponse {
+  ok: Boolean!
+  error: String
+  books: [Book]
+}
+
 type GetListsResponse {
   ok: Boolean!
   error: String
@@ -92,6 +108,33 @@ type List {
   id: Int!
   title: String!
   user: User!
+}
+
+type AddReviewResponse {
+  ok: Boolean!
+  error: String
+  reviewId: Int
+}
+
+type GetReviewsResponse {
+  ok: Boolean!
+  error: String
+  reviews: [Review]
+}
+
+enum Rating {
+  ONE
+  TWO
+  THREE
+  FOR
+  FIVE
+}
+
+type Review {
+  id: Int!
+  comment: String!
+  rating: Rating!
+  user: User
 }
 
 type AddFavoriteResponse {
