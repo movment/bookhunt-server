@@ -3,5 +3,5 @@ type AddBookInListResponse {
   error: String
 }
 type Mutation {
-  AddBookInList(bookId: String!, listId: String!): AddBookInListResponse!
+  AddBookInList(bookId: Int!, listId: Int!): AddBookInListResponse!
 }
