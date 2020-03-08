@@ -1,0 +1,13 @@
+enum Rating {
+  ONE
+  TWO
+  THREE
+  FOR
+  FIVE
+}
+type Review {
+  id: Int!
+  comment: String!
+  rating: Rating!
+  user: User
+}
