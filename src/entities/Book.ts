@@ -1,9 +1,12 @@
-import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import Share from './Share';
 import User from './User';
+import Booklist from './Booklist';
+import Review from './Review';
 
 @Entity()
 class Book extends Share {
+  // public isFav: Boolean;
   @Column({ type: 'varchar' })
   title: string;
 
@@ -34,11 +37,29 @@ class Book extends Share {
   @Column({ type: 'varchar', nullable: true })
   description: string | null | undefined;
 
-  @ManyToMany((type) => User, { cascade: true, onDelete: 'CASCADE' })
-  @JoinTable({
-    name: 'book_review',
-  })
-  reviewers: User[];
+  @Column({ default: 0 })
+  views: number;
+
+  @ManyToMany(
+    (type) => User,
+    (user) => user.books,
+  )
+  users: User[];
+
+  // @ManyToMany((type) => User, { cascade: true, onDelete: 'CASCADE' })
+  // @JoinTable({
+  //   name: 'book_review',
+  // })
+  // reviewers: User[];
+
+  @OneToMany(
+    (type) => Review,
+    (review) => review.book,
+    { cascade: true, onDelete: 'CASCADE' },
+  )
+  reviews: Review[];
+
+  // public isFav: boolean;
 }
 
 export default Book;
