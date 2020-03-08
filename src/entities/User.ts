@@ -10,6 +10,8 @@ import bcrypt from 'bcrypt';
 import Share from './Share';
 import Booklist from './Booklist';
 import Book from './Book';
+import { userInfo } from 'os';
+import Review from './Review';
 
 @Entity()
 class User extends Share {
@@ -35,7 +37,18 @@ class User extends Share {
   )
   lists: Booklist[];
 
-  @ManyToMany((type) => Book, { cascade: true, onDelete: 'CASCADE' })
+  @OneToMany(
+    (type) => Review,
+    (review) => review.user,
+    { cascade: true, onDelete: 'CASCADE' },
+  )
+  reviews: Review[];
+
+  @ManyToMany(
+    (type) => Book,
+    (book) => book.users,
+    { cascade: true, onDelete: 'CASCADE' },
+  )
   @JoinTable({
     name: 'book_user',
   })
