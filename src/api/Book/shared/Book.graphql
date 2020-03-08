@@ -9,5 +9,6 @@ type Book {
   pubdate: String
   isbn: String
   description: String
-  reviewers: [User]
+  isFav: Boolean
+  reviews: [Review]
 }
