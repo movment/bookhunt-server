@@ -1,0 +1,7 @@
+type DelReviewResponse {
+  ok: Boolean!
+  error: String
+}
+type Mutation {
+  DelReview(reviewId: Int!): DelReviewResponse!
+}
