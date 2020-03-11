@@ -9,7 +9,7 @@ const resolvers = {
       args: QueryGetBooksArgs,
       context,
     ): Promise<GetBooksResponse> => {
-      const { bookId } = args;
+      const { bookId, page = 1 } = args;
 
       // 상세검색
       if (bookId) {
@@ -37,14 +37,16 @@ const resolvers = {
       }
       const sort = (args.sort || 'VIEWS').toLowerCase();
       try {
-        const books: any = await Book.find({
+        const [books, max]: any = await Book.findAndCount({
           order: { [sort]: 'DESC' },
+          skip: 20 * ((page as number) - 1),
           take: 20,
         });
         return {
           ok: true,
           error: null,
           books,
+          max,
         };
       } catch (error) {
         return {

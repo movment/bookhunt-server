@@ -2,12 +2,12 @@ type GetBooksResponse {
   ok: Boolean!
   error: String
   books: [Book]
-  isFav: Boolean
+  max: Int
 }
 enum SortOptions {
   VIEWS
   PUBDATE
 }
 type Query {
-  GetBooks(bookId: Int, sort: SortOptions): GetBooksResponse!
+  GetBooks(bookId: Int, sort: SortOptions, page: Int): GetBooksResponse!
 }
