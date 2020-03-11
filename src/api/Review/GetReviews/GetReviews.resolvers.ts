@@ -14,6 +14,9 @@ const resolvers = {
           where: {
             bookId,
           },
+          order: {
+            id: 'DESC',
+          },
         });
         return {
           ok: true,
