@@ -71,11 +71,18 @@ export type Celeb = {
   image?: Maybe<Scalars['String']>,
 };
 
+export type DelReviewResponse = {
+   __typename?: 'DelReviewResponse',
+  ok: Scalars['Boolean'],
+  error?: Maybe<Scalars['String']>,
+};
+
 export type GetBooksInListResponse = {
    __typename?: 'GetBooksInListResponse',
   ok: Scalars['Boolean'],
   error?: Maybe<Scalars['String']>,
   books?: Maybe<Array<Maybe<Book>>>,
+  list?: Maybe<List>,
 };
 
 export type GetBooksResponse = {
@@ -83,7 +90,7 @@ export type GetBooksResponse = {
   ok: Scalars['Boolean'],
   error?: Maybe<Scalars['String']>,
   books?: Maybe<Array<Maybe<Book>>>,
-  isFav?: Maybe<Scalars['Boolean']>,
+  max?: Maybe<Scalars['Int']>,
 };
 
 export type GetCelebListResponse = {
@@ -121,6 +128,7 @@ export type Mutation = {
   AddBookInList: AddBookInListResponse,
   AddBookList: AddBookListResponse,
   AddReview: AddReviewResponse,
+  DelReview: DelReviewResponse,
   AddFavorite: AddFavoriteResponse,
   SignIn: SignInResponse,
   SignOut: SignOutResponse,
@@ -161,6 +169,11 @@ export type MutationAddReviewArgs = {
 };
 
 
+export type MutationDelReviewArgs = {
+  reviewId: Scalars['Int']
+};
+
+
 export type MutationAddFavoriteArgs = {
   bookId: Scalars['Int']
 };
@@ -198,7 +211,8 @@ export type Query = {
 
 export type QueryGetBooksArgs = {
   bookId?: Maybe<Scalars['Int']>,
-  sort?: Maybe<SortOptions>
+  sort?: Maybe<SortOptions>,
+  page?: Maybe<Scalars['Int']>
 };
 
 
@@ -236,6 +250,7 @@ export type Review = {
   comment: Scalars['String'],
   rating: Rating,
   user?: Maybe<User>,
+  createdAt?: Maybe<Scalars['String']>,
 };
 
 export type SearchBooksResponse = {

@@ -9,6 +9,7 @@ type Mutation {
   AddBookInList(bookId: Int!, listId: Int!): AddBookInListResponse!
   AddBookList(title: String!): AddBookListResponse!
   AddReview(bookId: Int!, comment: String!, rating: Rating!): AddReviewResponse!
+  DelReview(reviewId: Int!): DelReviewResponse!
   AddFavorite(bookId: Int!): AddFavoriteResponse!
   SignIn(email: String!, password: String!): SignInResponse!
   SignOut: SignOutResponse!
@@ -19,7 +20,7 @@ type GetBooksResponse {
   ok: Boolean!
   error: String
   books: [Book]
-  isFav: Boolean
+  max: Int
 }
 
 enum SortOptions {
@@ -28,7 +29,7 @@ enum SortOptions {
 }
 
 type Query {
-  GetBooks(bookId: Int, sort: SortOptions): GetBooksResponse!
+  GetBooks(bookId: Int, sort: SortOptions, page: Int): GetBooksResponse!
   SearchBooks(title: String!, max: Int): SearchBooksResponse!
   GetCelebList: GetCelebListResponse!
   GetBooksInList(listId: Int!): GetBooksInListResponse!
@@ -91,6 +92,7 @@ type GetBooksInListResponse {
   ok: Boolean!
   error: String
   books: [Book]
+  list: List
 }
 
 type GetListsResponse {
@@ -116,6 +118,11 @@ type AddReviewResponse {
   reviewId: Int
 }
 
+type DelReviewResponse {
+  ok: Boolean!
+  error: String
+}
+
 type GetReviewsResponse {
   ok: Boolean!
   error: String
@@ -135,6 +142,7 @@ type Review {
   comment: String!
   rating: Rating!
   user: User
+  createdAt: String
 }
 
 type AddFavoriteResponse {
