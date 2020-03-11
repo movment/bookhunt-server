@@ -18,6 +18,7 @@ const resolvers = {
         ok: true,
         error: null,
         books: list?.books as any,
+        list,
       };
     },
   },

@@ -2,6 +2,7 @@ type GetBooksInListResponse {
   ok: Boolean!
   error: String
   books: [Book]
+  list: List
 }
 type Query {
   GetBooksInList(listId: Int!): GetBooksInListResponse!
