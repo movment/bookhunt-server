@@ -10,4 +10,5 @@ type Review {
   comment: String!
   rating: Rating!
   user: User
+  createdAt: String
 }
