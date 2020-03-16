@@ -33,7 +33,8 @@ type Query {
   SearchBooks(title: String!, max: Int): SearchBooksResponse!
   GetCelebList: GetCelebListResponse!
   GetBooksInList(listId: Int!): GetBooksInListResponse!
-  GetLists(type: options): GetListsResponse!
+  GetLists(type: options, sort: SortOptions, page: Int): GetListsResponse!
+  GetListsOfBook(bookId: Int!): GetListsOfBookResponse!
   GetReviews(bookId: Int!): GetReviewsResponse!
 }
 
@@ -99,11 +100,18 @@ type GetListsResponse {
   ok: Boolean!
   error: String
   lists: [List]
+  max: Int
 }
 
 enum options {
   ALL
   MY
+}
+
+type GetListsOfBookResponse {
+  ok: Boolean!
+  errors: [String]
+  lists: [List]
 }
 
 type List {

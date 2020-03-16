@@ -100,11 +100,19 @@ export type GetCelebListResponse = {
   celebs?: Maybe<Array<Maybe<Celeb>>>,
 };
 
+export type GetListsOfBookResponse = {
+   __typename?: 'GetListsOfBookResponse',
+  ok: Scalars['Boolean'],
+  errors?: Maybe<Array<Maybe<Scalars['String']>>>,
+  lists?: Maybe<Array<Maybe<List>>>,
+};
+
 export type GetListsResponse = {
    __typename?: 'GetListsResponse',
   ok: Scalars['Boolean'],
   error?: Maybe<Scalars['String']>,
   lists?: Maybe<Array<Maybe<List>>>,
+  max?: Maybe<Scalars['Int']>,
 };
 
 export type GetReviewsResponse = {
@@ -205,6 +213,7 @@ export type Query = {
   GetCelebList: GetCelebListResponse,
   GetBooksInList: GetBooksInListResponse,
   GetLists: GetListsResponse,
+  GetListsOfBook: GetListsOfBookResponse,
   GetReviews: GetReviewsResponse,
 };
 
@@ -228,7 +237,14 @@ export type QueryGetBooksInListArgs = {
 
 
 export type QueryGetListsArgs = {
-  type?: Maybe<Options>
+  type?: Maybe<Options>,
+  sort?: Maybe<SortOptions>,
+  page?: Maybe<Scalars['Int']>
+};
+
+
+export type QueryGetListsOfBookArgs = {
+  bookId: Scalars['Int']
 };
 
 
