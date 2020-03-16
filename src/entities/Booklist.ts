@@ -9,6 +9,9 @@ class Booklist extends Share {
   @Column({ type: 'varchar', length: 50 })
   title: string;
 
+  @Column({ default: 0 })
+  views: number;
+
   @ManyToOne(
     (type) => User,
     (user) => user.lists,
