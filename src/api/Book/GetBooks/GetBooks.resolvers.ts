@@ -17,7 +17,8 @@ const resolvers = {
           const book: any = await Book.findOne(bookId, {
             relations: ['users', 'reviews'],
           });
-
+          book.views += 1;
+          await book.save();
           book.isFav =
             book.users.findIndex((user) => user.id === context.req.user) === -1
               ? false
@@ -38,10 +39,11 @@ const resolvers = {
       const sort = (args.sort || 'VIEWS').toLowerCase();
       try {
         const [books, max]: any = await Book.findAndCount({
-          order: { [sort]: 'DESC' },
+          order: { [sort]: 'DESC', id: 'DESC' },
           skip: 20 * ((page as number) - 1),
           take: 20,
         });
+
         return {
           ok: true,
           error: null,
