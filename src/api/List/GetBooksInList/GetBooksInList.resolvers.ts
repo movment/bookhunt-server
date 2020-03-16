@@ -14,6 +14,10 @@ const resolvers = {
       const list = await Booklist.findOne(args.listId, {
         relations: ['books'],
       });
+      if (list) {
+        list.views += 1;
+      }
+      list?.save();
       return {
         ok: true,
         error: null,
