@@ -2,12 +2,16 @@ type GetListsResponse {
   ok: Boolean!
   error: String
   lists: [List]
+  max: Int
 }
-
+enum SortOptions {
+  VIEWS
+  PUBDATE
+}
 enum options {
   ALL
   MY
 }
 type Query {
-  GetLists(type: options): GetListsResponse!
+  GetLists(type: options, sort: SortOptions, page: Int): GetListsResponse!
 }

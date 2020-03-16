@@ -10,33 +10,48 @@ const resolvers = {
       args: QueryGetListsArgs,
       context,
     ): Promise<GetListsResponse> => {
+      const { type, page = 1, sort } = args;
+      let createdAt = sort?.toLowerCase() === 'views' ? 'views' : 'createdAt';
       try {
-        if (args.type === 'MY') {
+        if (type === 'MY') {
           if (!context.req.user) {
             throw new Error('로그인 먼저');
           }
-          console.log('start');
-          const user = await User.findOne(context.req.user, {
-            relations: ['lists'],
+          const [lists, max] = await Booklist.findAndCount({
+            where: { userId: context.req.user },
+            order: {
+              createdAt: 'DESC',
+              id: 'DESC',
+            },
+            skip: 20 * ((page as number) - 1),
+            take: 20,
           });
+          // const user = await User.findOne(context.req.user, {
+          //   relations: ['lists'],
+          // });
           return {
             ok: true,
             error: null,
-            lists: user?.lists,
+            lists,
+            max,
           };
         }
-        const lists = await Booklist.find({
+        const [lists, max] = await Booklist.findAndCount({
           order: {
+            [createdAt || 'views']: 'DESC',
             id: 'DESC',
           },
+          skip: 20 * ((page as number) - 1),
           take: 20,
         });
         return {
           ok: true,
           error: null,
           lists,
+          max,
         };
       } catch (error) {
+        console.log(error.message);
         return {
           ok: false,
           error: error.message,
