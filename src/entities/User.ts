@@ -21,7 +21,7 @@ class User extends Share {
   @Column({ type: 'varchar', length: 50, unique: true })
   email: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   password: string;
 
   @Column({ type: 'varchar', length: 50, nullable: true })
@@ -29,6 +29,9 @@ class User extends Share {
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   image: string | undefined | null;
+
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  naverId: string | undefined | null;
 
   @OneToMany(
     (type) => Booklist,
