@@ -1,10 +1,15 @@
 import jwt from 'jsonwebtoken';
 import { MutationSignInArgs, SignInResponse } from '../../../types/types';
 import User from '../../../entities/User';
+import passport from 'passport';
 
 const resolvers = {
   Mutation: {
-    SignIn: async (_, args: MutationSignInArgs): Promise<SignInResponse> => {
+    SignIn: async (
+      _,
+      args: MutationSignInArgs,
+      context,
+    ): Promise<SignInResponse> => {
       const { email, password } = args;
 
       try {
