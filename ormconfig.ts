@@ -6,5 +6,5 @@ module.exports = {
   username: process.env.TYPEORM_USERNAME,
   password: process.env.TYPEORM_PASSWORD,
   database: 'books',
-  logging: true,
+  logging: false,
 };
